@@ -63,5 +63,15 @@ namespace Pragmatics.Store.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(Guid id)
+        {
+            var itemDto = dataStore.SingleOrDefault(item => item.ID == id);
+
+            dataStore.Remove(itemDto);
+
+            return NoContent();
+        }
     }
 }
