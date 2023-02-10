@@ -80,6 +80,11 @@ namespace Pragmatics.Store.Controllers
         {
             var itemDto = dataStore.SingleOrDefault(item => item.ID == id);
 
+            if (itemDto == null)
+            {
+                return NotFound();
+            }
+
             dataStore.Remove(itemDto);
 
             return NoContent();
