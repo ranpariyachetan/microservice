@@ -26,9 +26,15 @@ namespace Pragmatics.Store.Controllers
         }
 
         [HttpGet("{id}")]
-        public ItemDto GetById(Guid id)
+        public ActionResult<ItemDto> GetById(Guid id)
         {
-            return dataStore.SingleOrDefault(item => item.ID == id);
+            var item = dataStore.SingleOrDefault(item => item.ID == id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return item;
         }
 
         [HttpPost]
@@ -45,7 +51,7 @@ namespace Pragmatics.Store.Controllers
 
             dataStore.Add(itemDto);
 
-            return CreatedAtAction(nameof(GetById), new {id = itemDto.ID}, item);
+            return CreatedAtAction(nameof(GetById), new { id = itemDto.ID }, item);
         }
 
         [HttpPut("{id}")]
