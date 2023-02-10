@@ -9,6 +9,6 @@ namespace Pragmatics.Store.Entities
 
         public double Price { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }

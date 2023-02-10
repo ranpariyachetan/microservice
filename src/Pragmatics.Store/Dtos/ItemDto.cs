@@ -2,7 +2,7 @@ namespace Pragmatics.Store.Dtos
 {
     public class ItemDto
     {
-        public Guid ID {get;set;}
+        public Guid ID { get; set; }
 
         public string Name { get; set; }
 
@@ -10,6 +10,6 @@ namespace Pragmatics.Store.Dtos
 
         public double Price { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
     }
 }
