@@ -38,7 +38,7 @@ namespace Pragmatics.Store.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateItemDto item)
+        public ActionResult<ItemDto> Post(CreateItemDto item)
         {
             var itemDto = new ItemDto
             {
@@ -56,9 +56,14 @@ namespace Pragmatics.Store.Controllers
 
         [HttpPut("{id}")]
 
-        public ActionResult Update(Guid id, UpdateItemDto item)
+        public ActionResult Put(Guid id, UpdateItemDto item)
         {
             var itemDto = dataStore.SingleOrDefault(itm => itm.ID == id);
+
+            if (itemDto == null)
+            {
+                return NotFound();
+            }
 
             itemDto.Name = item.Name;
             itemDto.Description = item.Description;
