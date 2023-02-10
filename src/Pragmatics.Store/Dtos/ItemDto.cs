@@ -2,7 +2,7 @@ namespace Pragmatics.Store.Dtos
 {
     public class ItemDto
     {
-        public Guid Id {get;set;}
+        public Guid ID {get;set;}
 
         public string Name { get; set; }
 
