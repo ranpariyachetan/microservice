@@ -12,10 +12,10 @@ namespace Pragmatics.Store.Controllers
     {
         private static List<ItemDto> dataStore = new List<ItemDto>
         {
-            new ItemDto {ID = Guid.NewGuid(), Name = "Cold Drink", Price = 2.0},
-            new ItemDto {ID = Guid.NewGuid(), Name = "Ice Cream", Price = 1.80},
-            new ItemDto {ID = Guid.NewGuid(), Name = "Chocolate", Price = 1.20},
-            new ItemDto {ID = Guid.NewGuid(), Name = "Fruit Juice", Price = 2.0}
+            new ItemDto {ID = Guid.NewGuid(), Name = "Cold Drink", Description = "Cold drink", Price = 2.0, CreatedDate = DateTime.UtcNow},
+            new ItemDto {ID = Guid.NewGuid(), Name = "Ice Cream", Description = "Havemor Icecream", Price = 1.80, CreatedDate = DateTime.UtcNow},
+            new ItemDto {ID = Guid.NewGuid(), Name = "Chocolate", Description="Lindt Chocolate", Price = 1.20, CreatedDate = DateTime.UtcNow},
+            new ItemDto {ID = Guid.NewGuid(), Name = "Fruit Juice", Price = 2.0, CreatedDate = DateTime.UtcNow}
         };
 
         [HttpGet]
@@ -30,6 +30,23 @@ namespace Pragmatics.Store.Controllers
         public ItemDto GetById(Guid id)
         {
             return dataStore.SingleOrDefault(item => item.ID == id);
+        }
+
+        [HttpPost]
+        public ActionResult Create(CreateItemDto item)
+        {
+            var itemDto = new ItemDto
+            {
+                ID = Guid.NewGuid(),
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                CreatedDate = DateTime.UtcNow
+            };
+
+            dataStore.Add(itemDto);
+
+            return CreatedAtAction(nameof(GetById), new {id = itemDto.ID}, item);
         }
     }
 }
