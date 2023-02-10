@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Pragmatics.Store.Dtos;
 using Pragmatics.Store.Entities;
@@ -13,7 +9,12 @@ namespace Pragmatics.Store.Controllers
     [Route("[controller]")]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemsRepository itemsRepository = new ItemsRepository();
+        private readonly IItemsRepository itemsRepository;
+
+        public ItemsController(IItemsRepository itemsRepository)
+        {
+            this.itemsRepository = itemsRepository;
+        }
 
         [HttpGet]
         [Route("")]

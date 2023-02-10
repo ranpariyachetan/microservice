@@ -1,5 +1,8 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using Pragmatics.Store.Repositories;
+using Pragmatics.Store.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.String));
 
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
+
+var serviceSettings = builder.Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var mongoDbSettings = builder.Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
+    var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
+    return mongoClient.GetDatabase(serviceSettings.ServiceName);
+});
+
+builder.Services.AddSingleton<IItemsRepository, ItemsRepository>();
 
 builder.Services.AddControllers(options =>
 {
