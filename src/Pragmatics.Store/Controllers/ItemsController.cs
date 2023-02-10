@@ -13,7 +13,7 @@ namespace Pragmatics.Store.Controllers
     [Route("[controller]")]
     public class ItemsController : ControllerBase
     {
-        private readonly ItemsRepository itemsRepository = new ItemsRepository();
+        private readonly IItemsRepository itemsRepository = new ItemsRepository();
 
         [HttpGet]
         [Route("")]

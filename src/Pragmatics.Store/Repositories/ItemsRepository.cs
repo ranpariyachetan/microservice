@@ -1,10 +1,9 @@
-using Amazon.Runtime;
 using MongoDB.Driver;
 using Pragmatics.Store.Entities;
 
 namespace Pragmatics.Store.Repositories
 {
-    public class ItemsRepository
+    public class ItemsRepository : IItemsRepository
     {
         private const string collectioNName = "items";
         private readonly IMongoCollection<Item> dbCollection;
